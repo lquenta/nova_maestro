@@ -3,6 +3,6 @@
     "api/index.js": { "includeFiles": "{show.json,panel.html,server.js}" }
   },
   "rewrites": [
-    { "source": "/(.*)", "destination": "/api/index" }
+    { "source": "/(.*)", "destination": "/api/index?path=/$1" }
   ]
 }

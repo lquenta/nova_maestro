@@ -181,6 +181,10 @@ async function handler(req, res) {
   }
 
   const url = new URL(req.url, "http://localhost");
+  // En Vercel todo se reescribe a /api/index y la ruta pedida llega en ?path=.
+  const routed = url.searchParams.get("path");
+  if (routed) url.pathname = routed.replace(/\/+$/, "") || "/";
+  else if (url.pathname === "/api/index") url.pathname = "/";
 
   if (req.method === "GET" && (url.pathname === "/" || url.pathname === "/panel")) {
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
