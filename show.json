@@ -1,0 +1,15 @@
+{
+  "characters": [
+    { "id": "A", "label": "A", "texture": "Characters/A/albedo", "prefab": "Characters/A/Demogorgon", "scale": 0.2, "behavior": "charge", "intro": "Armature|mixamo.com|Layer0" },
+    { "id": "B", "label": "B", "texture": "Characters/B/albedo", "prefab": "Characters/B/Demobat", "scale": 0.01, "behavior": "swarm", "count": 30 },
+    { "id": "C", "label": "C", "texture": "Characters/C/albedo", "prefab": "Characters/C/Demodog", "scale": 1, "behavior": "pack", "count": 8 }
+  ],
+  "actions": [
+    { "id": "1", "label": "1", "kind": "animation", "state": "Idle", "rootMotion": false, "speed": 0 },
+    { "id": "2", "label": "2", "kind": "animation", "state": "Move", "rootMotion": true, "speed": 0.55 },
+    { "id": "3", "label": "3", "kind": "animation", "state": "Run", "rootMotion": true, "speed": 1.35 },
+    { "id": "4", "label": "4", "kind": "effect", "effect": "glitch" },
+    { "id": "5", "label": "5", "kind": "effect", "effect": "vhs" },
+    { "id": "6", "label": "6", "kind": "effect", "effect": "fog" }
+  ]
+}

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOVA maestro</title>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; background: #0b0710; color: #f3e9ff; }
+  header { padding: 18px; display: flex; justify-content: space-between; align-items: center; }
+  h1 { margin: 0; letter-spacing: 8px; font-size: 22px; }
+  #status { font-size: 13px; opacity: .7; }
+  main { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px 16px; }
+  button { border: 2px solid #3a2448; background: #1a1022; color: inherit; border-radius: 14px;
+           padding: 26px 8px; font-size: 18px; font-weight: 700; }
+  button.on { background: #b0164e; border-color: #ff4f8b; }
+  button.purple.on { background: #6a1fb5; border-color: #b57cff; }
+  button.wide { grid-column: span 2; }
+  button.reset { background: #2a2a2a; border-color: #555; }
+</style>
+</head>
+<body>
+<header><h1>NOVA</h1><span id="status">...</span></header>
+<main>
+  <button data-id="A">Demogorgon A</button>
+  <button data-id="B">Demobats B</button>
+  <button data-id="C" class="wide">Demodogs C</button>
+  <button data-id="fog">Niebla densa</button>
+  <button data-id="purple" class="purple">Purple rain</button>
+  <button data-id="vibrate">Vibrador</button>
+  <button data-id="flash">Flash</button>
+  <button data-id="reset" class="wide reset">Apagar todo</button>
+</main>
+<script>
+  const status = document.getElementById("status");
+  function key() {
+    let k = localStorage.getItem("nova-key");
+    if (!k) { k = prompt("API key") || ""; localStorage.setItem("nova-key", k); }
+    return k;
+  }
+  function paint(s) {
+    document.querySelectorAll("button[data-id]").forEach((b) => {
+      const id = b.dataset.id;
+      b.classList.toggle("on", s.character === id || s[id] === true);
+    });
+    status.textContent = "rev " + s.revision;
+  }
+  async function send(id) {
+    const r = await fetch("/api/concert", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-api-key": key() },
+      body: JSON.stringify({ id })
+    });
+    if (r.status === 401) { localStorage.removeItem("nova-key"); status.textContent = "key incorrecta"; return; }
+    if (r.ok) paint(await r.json()); else status.textContent = "error " + r.status;
+  }
+  document.querySelectorAll("button[data-id]").forEach((b) => b.onclick = () => send(b.dataset.id).catch(() => status.textContent = "sin red"));
+  fetch("/api/concert").then((r) => r.json()).then(paint).catch(() => status.textContent = "sin red");
+</script>
+</body>
+</html>

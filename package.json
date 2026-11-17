@@ -1,0 +1,13 @@
+{
+  "name": "upside-down-show",
+  "private": true,
+  "version": "0.1.0",
+  "description": "API del show: el maestro escribe con POST y los celulares leen el ultimo comando.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
