@@ -8,7 +8,7 @@ const KV_URL = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL
 const KV_TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || "";
 
 const CHARACTERS = ["A", "B", "C"];
-const MODES = ["fog", "purple", "vibrate", "flash"];
+const MODES = ["fog", "vhs", "purple", "vibrate", "flash"];
 
 function loadShow() {
   const file = path.join(__dirname, "show.json");
@@ -31,6 +31,7 @@ function freshConcert() {
     revision: 0,
     character: "",
     fog: false,
+    vhs: false,
     purple: false,
     vibrate: false,
     flash: false,
